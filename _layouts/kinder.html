@@ -1,0 +1,188 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="camp-page">
+
+  <!-- 브레드크럼 -->
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/region/{{ page.sido_nm | uri_escape }}/">{{ page.sido_nm }}</a>
+    <span>›</span>
+    <span>{{ page.kinderName }}</span>
+  </nav>
+
+  <div class="gallery" id="gallery">
+    <div class="gallery-placeholder">🏫</div>
+  </div>
+
+  <!-- 헤더 -->
+  <div class="camp-header">
+    <div class="camp-tags">
+      <span class="tag tag-type">📍 {{ page.sido_nm }} {{ page.sggu_nm }}</span>
+      {% if page.foundType and page.foundType != "" %}<span class="tag tag-safe">🏫 {{ page.foundType }}</span>{% endif %}
+    </div>
+    <h1 class="camp-title">{{ page.kinderName }}</h1>
+    {% if page.addr and page.addr != "" %}
+    <div class="camp-info-row">
+      <span class="camp-info-icon">📍</span>
+      <span>{{ page.addr }}</span>
+    </div>
+    {% endif %}
+    {% if page.tel and page.tel != "" %}
+    <div class="camp-info-row">
+      <span class="camp-info-icon">📞</span>
+      <a href="tel:{{ page.tel }}">{{ page.tel }}</a>
+    </div>
+    {% endif %}
+    {% if page.operHours and page.operHours != "" %}
+    <div class="camp-info-row">
+      <span class="camp-info-icon">🕐</span>
+      <span>{{ page.operHours }}</span>
+    </div>
+    {% endif %}
+    {% if page.principal and page.principal != "" %}
+    <div class="camp-info-row">
+      <span class="camp-info-icon">👤</span>
+      <span>원장: {{ page.principal }}</span>
+    </div>
+    {% endif %}
+    {% if page.homepage and page.homepage != "" %}
+    <div class="camp-info-row">
+      <span class="camp-info-icon">🔗</span>
+      <a href="{{ page.homepage }}" target="_blank" rel="noopener noreferrer">홈페이지 바로가기</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- 광고 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <!-- 학급·원아 현황 -->
+  <div class="camp-section trust-box">
+    <h2>🧒 학급·원아 현황</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px;">
+      <div style="background:#fff;border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:.78rem;color:#6B7280;margin-bottom:4px;">인가 정원</div>
+        <div style="font-size:1.3rem;font-weight:800;color:#111827;">{{ page.capacity }}명</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:.78rem;color:#6B7280;margin-bottom:4px;">현재 원아수</div>
+        <div style="font-size:1.3rem;font-weight:800;color:#111827;">{{ page.totalStudents }}명</div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:.78rem;color:#6B7280;margin-bottom:4px;">총 학급수</div>
+        <div style="font-size:1.3rem;font-weight:800;color:#111827;">{{ page.totalClasses }}반</div>
+      </div>
+    </div>
+    <div class="facility-grid">
+      {% if page.classes.age3 > 0 %}<span class="facility-badge">👶 만3세 {{ page.classes.age3 }}반 · {{ page.students.age3 }}명</span>{% endif %}
+      {% if page.classes.age4 > 0 %}<span class="facility-badge">🧒 만4세 {{ page.classes.age4 }}반 · {{ page.students.age4 }}명</span>{% endif %}
+      {% if page.classes.age5 > 0 %}<span class="facility-badge">👦 만5세 {{ page.classes.age5 }}반 · {{ page.students.age5 }}명</span>{% endif %}
+      {% if page.classes.mixed > 0 %}<span class="facility-badge">👨‍👩‍👧‍👦 혼합연령 {{ page.classes.mixed }}반 · {{ page.students.mixed }}명</span>{% endif %}
+      {% if page.classes.special > 0 %}<span class="facility-badge">💙 특수학급 {{ page.classes.special }}반 · {{ page.students.special }}명</span>{% endif %}
+    </div>
+    <p style="font-size:.82rem;color:#7C2D12;margin-top:14px;">
+      교육부·한국교육학술정보원 유치원알리미 공시정보 기준입니다. 최신 정원·대기 현황은 방문 전 전화로 확인하세요.
+    </p>
+  </div>
+
+  {% if page.addr and page.addr != "" %}
+  <!-- 지도 -->
+  <div class="camp-section">
+    <h2>🗺️ 위치</h2>
+    <div id="map" style="width:100%;height:280px;border-radius:10px;background:#F3F4F6;"></div>
+    <a id="mapLink" href="https://map.kakao.com/?q={{ page.addr | uri_escape }}" target="_blank" rel="noopener" class="reserve-btn secondary" style="margin-top:12px;display:block;">🗺️ 카카오맵에서 크게 보기</a>
+  </div>
+  {% endif %}
+
+  <!-- 광고 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <!-- 같은 지역 유치원 -->
+  <div class="region-camps">
+    <h2>📍 {{ page.sido_nm }} 다른 유치원</h2>
+    <div id="regionKindersGrid" class="camp-grid"></div>
+    <p style="margin-top:16px;">
+      <a href="/region/{{ page.sido_nm | uri_escape }}/">{{ page.sido_nm }} 유치원 전체 보기 →</a>
+    </p>
+  </div>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Preschool",
+    "name": "{{ page.kinderName | escape }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ page.addr | escape }}",
+      "addressCountry": "KR"
+    }{% if page.tel and page.tel != "" %},
+    "telephone": "{{ page.tel | escape }}"{% endif %}{% if page.lat and page.lat != "" %},
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": {{ page.lat }},
+      "longitude": {{ page.lng }}
+    }{% endif %}
+  }
+  </script>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>
+
+<script>
+(async () => {
+  const currentSlug = {{ page.slug | jsonify }};
+  const currentRegion = {{ page.sido_nm | jsonify }};
+  const currentSggu = {{ page.sggu_nm | jsonify }};
+  const lat = {{ page.lat | jsonify }};
+  const lng = {{ page.lng | jsonify }};
+  const kinderName = {{ page.kinderName | jsonify }};
+
+  const mapEl = document.getElementById('map');
+  if (mapEl && lat && lng) {
+    const script = document.createElement('script');
+    script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=78e249ab403b2955e4ca71e71f658549';
+    script.onload = () => {
+      const center = new kakao.maps.LatLng(parseFloat(lat), parseFloat(lng));
+      const map = new kakao.maps.Map(mapEl, { center, level: 4 });
+      new kakao.maps.Marker({ map, position: center });
+    };
+    document.head.appendChild(script);
+  } else if (mapEl) {
+    mapEl.innerHTML = '<p style="padding:20px;text-align:center;color:#9CA3AF;">좌표 정보가 없어 지도를 표시할 수 없습니다. 아래 버튼으로 확인하세요.</p>';
+  }
+
+  try {
+    const resp = await fetch('/search_index.json');
+    const all = await resp.json();
+
+    const regionKinders = all
+      .filter(f => f.doShort === currentRegion && f.slug !== currentSlug)
+      .sort((a,b) => (a.sigungu === currentSggu ? -1 : 1))
+      .slice(0, 6);
+
+    if (regionKinders.length > 0) {
+      document.getElementById('regionKindersGrid').innerHTML = regionKinders.map(kinderCard).join('');
+    }
+  } catch(e) {}
+
+  function kinderCard(f) {
+    return `<a class="camp-card" href="/kinder/${f.slug}/">
+      <div class="camp-card-img-placeholder">🏫</div>
+      <div class="camp-card-body">
+        <div class="camp-card-name">${f.n}</div>
+        <div class="camp-card-loc">📍 ${f.sigungu || f.doShort || ''}</div>
+      </div>
+    </a>`;
+  }
+})();
+</script>

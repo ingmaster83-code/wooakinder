@@ -1,0 +1,30 @@
+title: 우아유치원 - 전국 유치원 찾기
+description: >-
+  전국 7,000여 개 국공사립 유치원을 지역별로 검색. 주소·전화번호·운영시간·학급수·원아정원 등
+  유치원알리미(교육부) 공시정보를 한눈에 확인하세요.
+url: "https://wooakinder.wooahouse.com"
+baseurl: ""
+lang: ko
+timezone: Asia/Seoul
+author: WooaHouse
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - "*.py"
+  - "*.log"
+  - "*.txt"
+  - README.md
+  - .gitignore
+  - vendor/
+  - _rawdata/
