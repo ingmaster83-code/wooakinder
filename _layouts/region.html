@@ -28,6 +28,15 @@ layout: default
 
   <p id="kinderCount" style="font-size:.87rem;color:#6B7280;margin-bottom:16px;"></p>
 
+  {% assign hubsg = site.data.hub_sg[page.do_name] %}
+  {% if hubsg.size > 0 %}
+  <h2 class="hb-h2">📍 {{ page.do_name }} 시군구·동네별 유치원</h2>
+  <div class="hb-chips">
+    {% for g in hubsg %}<a class="hb-chip" href="/region/{{ page.do_name | uri_escape }}/{{ g.slug | uri_escape }}/">{{ g.name }}<em>{{ g.count }}</em></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   <div class="camp-grid" id="kinderGrid">
     <p style="color:#6B7280;">로딩 중...</p>
   </div>
